@@ -61,7 +61,7 @@ jobs:
       run: |
         # Add commands to deploy static files to GitHub Pages.
         # This can involve copying files to the docs/ directory or another branch.
-
+        mkdir -p docs
         # Example: Copy static files to the docs/ directory
         cp -r static/ docs/
 
