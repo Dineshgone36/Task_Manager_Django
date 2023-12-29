@@ -71,10 +71,16 @@ jobs:
         git config --global user.email "Dineshgone36@gmail.com"
         git config --global user.name "Dineshgone36"
 
-    - name: Commit and Push to GitHub Pages Branch
+    - name: Stage Changes
+      run: |
+        git add .
+
+    - name: Commit Changes
       run: |
        git config user.name "GitHub Actions"
        git config user.email "actions@github.com"
-       git add docs/
        git commit -m "Deploy to GitHub Pages"
-       git push origin main:gh-pages 
+
+    - name: Push to GitHub Pages Branch
+      run: |
+        git push origin main:gh-pages
