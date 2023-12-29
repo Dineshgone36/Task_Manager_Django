@@ -84,3 +84,5 @@ jobs:
     - name: Push to GitHub Pages Branch
       run: |
         git push origin main:gh-pages
+env:
+  GITHUB_TOKEN: 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
