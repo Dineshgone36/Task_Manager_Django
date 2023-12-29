@@ -64,7 +64,7 @@ jobs:
         mkdir -p docs
         # Example: Copy static files to the docs/ directory
         cd backend
-        cp -r backend/backend/static/ docs/
+        cp -r backend/static/ docs/
 
     - name: Commit and Push to GitHub Pages Branch
       run: |
