@@ -1,0 +1,74 @@
+name: Django CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.11]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Tests
+      run: |
+        cd backend
+        python manage.py test
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.x
+
+    - name: Install Dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Collect Static Files
+      run: |
+        cd backend
+        python manage.py collectstatic --noinput
+
+    - name: Deploy to GitHub Pages
+      run: |
+        # Add commands to deploy static files to GitHub Pages.
+        # This can involve copying files to the docs/ directory or another branch.
+
+        # Example: Copy static files to the docs/ directory
+        cp -r static/ docs/
+
+    - name: Commit and Push to GitHub Pages Branch
+      run: |
+        git config user.name "Dineshgone36"
+        git config user.email "Dineshgone36@gmail.com"
+        git add docs/
+        git commit -m "Deploy to GitHub Pages"
+        git push origin main:gh-pages  # Change 'main' to your branch name
