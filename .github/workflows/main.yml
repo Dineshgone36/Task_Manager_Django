@@ -63,6 +63,7 @@ jobs:
         # This can involve copying files to the docs/ directory or another branch.
         mkdir -p docs
         # Example: Copy static files to the docs/ directory
+        cd backend
         cp -r static/ docs/
 
     - name: Commit and Push to GitHub Pages Branch
